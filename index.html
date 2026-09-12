@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1632">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>1 Year 10 Months — My Favourite Person ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#07112a;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent}
+img{max-width:100%;height:auto}
+.page{min-height:100vh;position:relative;overflow:hidden}
+
+/* =========================
+   DESKTOP — original artwork
+   ========================= */
+.desktop-view{display:block;position:relative;width:100%}
+.art{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none}
+.nav{
+ position:fixed;left:20px;top:20px;z-index:20;
+ display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 40px)
+}
+.nav a{
+ pointer-events:auto;color:#fff;background:#091633e8;border:1px solid #ffffff35;
+ padding:9px 13px;border-radius:999px;text-decoration:none;font-size:12px;
+ backdrop-filter:blur(8px);transition:.2s;white-space:nowrap
+}
+.nav a:hover{background:#ff9fbb;color:#241827;transform:translateY(-2px)}
+.hotspot{
+ position:absolute;pointer-events:auto;border:0;background:transparent;cursor:pointer;
+ border-radius:20px;outline:none;touch-action:manipulation
+}
+.hotspot:hover,.hotspot:focus-visible{background:#ffffff0c}
+.note{
+ position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+ background:#081533ee;border:1px solid #ffffff33;padding:9px 16px;border-radius:999px;
+ font-size:12px;z-index:5;white-space:nowrap
+}
+
+/* =========================
+   MOBILE — same artwork, split
+   ========================= */
+.mobile-view{display:none}
+.mobile-nav{
+ position:sticky;top:0;z-index:40;background:#091633f5;
+ display:flex;gap:7px;overflow-x:auto;padding:9px 10px;
+ scrollbar-width:none;border-bottom:1px solid #ffffff18;
+ -webkit-overflow-scrolling:touch
+}
+.mobile-nav::-webkit-scrollbar{display:none}
+.mobile-nav a{
+ flex:0 0 auto;color:#fff;background:#ffffff12;border:1px solid #ffffff25;
+ padding:8px 12px;border-radius:999px;text-decoration:none;font-size:11px;white-space:nowrap
+}
+.mobile-nav a:active{background:#ff9fbb;color:#241827}
+
+.mobile-hero{position:relative;background:#0b1736;display:block;overflow:hidden}
+.mobile-hero-image-wrap{position:relative;width:100%;line-height:0;background:#0b1736}
+.mobile-hero-image-wrap img{display:block;width:100%;height:auto;max-width:none;user-select:none;-webkit-user-drag:none}
+.hero-image-start{position:absolute;left:17%;top:69%;width:16%;height:17%;display:block;border-radius:999px;z-index:3;touch-action:manipulation}
+.start-btn,.choice-btn{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:46px;padding:11px 22px;border:0;border-radius:999px;
+ background:#ff9fbb;color:#281827;font-weight:700;cursor:pointer;
+ box-shadow:0 8px 22px #0003;touch-action:manipulation
+}
+.mobile-section{padding:28px 16px;background:#fff7ef;color:#2b2028}
+.mobile-section.dark{background:#091533;color:#fff}
+.mobile-panel{
+ width:100%;display:block;border-radius:16px;
+ box-shadow:0 12px 30px #0003
+}
+.mobile-section h2{
+ font-family:Georgia,serif;color:#c64b70;font-size:35px;line-height:1.05;
+ margin:22px 0 10px
+}
+.mobile-section.dark h2{color:#ffadc4}
+.mobile-section p{font-size:16px;line-height:1.75;margin:0 0 26px}
+.mobile-section .last-panel{margin-top:30px}
+
+.mobile-memories{
+ background:#071533;color:#fff;padding:42px 16px
+}
+.mobile-memories h2{
+ margin:0 0 8px;font:38px Georgia;color:#ffadc4
+}
+.mobile-memories > p{line-height:1.6;margin:0 0 24px}
+.memory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.memory-card{
+ background:#fff;padding:5px 5px 25px;border-radius:2px;
+ box-shadow:0 7px 18px #0007;transform:rotate(-2deg)
+}
+.memory-card:nth-child(2){transform:rotate(2deg)}
+.memory-card:nth-child(3){transform:rotate(-1deg)}
+.memory-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.memory-card span{display:block;color:#241d25;text-align:center;font:13px Georgia;margin-top:7px}
+
+.mobile-final{
+ min-height:75svh;padding:60px 20px;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ background:linear-gradient(180deg,#17264f 0%,#5a365b 65%,#e98b9d 100%);
+ position:relative;overflow:hidden
+}
+.mobile-final h2{
+ font:clamp(44px,12vw,66px) Georgia;line-height:.9;margin:0;color:#fff
+}
+.mobile-final p{
+ font:22px Georgia;line-height:1.45;margin:25px auto;max-width:500px
+}
+.choices{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.choice-btn.alt{background:transparent;border:1px solid #fff;color:#fff;box-shadow:none}
+
+/* =========================
+   POPUP — shared
+   ========================= */
+.modal{
+ position:fixed;inset:0;background:#050b1acc;backdrop-filter:blur(8px);
+ display:flex;align-items:center;justify-content:center;padding:20px;
+ opacity:0;visibility:hidden;transition:.25s;z-index:100
+}
+.modal.open{opacity:1;visibility:visible}
+.box{
+ width:min(620px,100%);max-height:min(80svh,620px);overflow:auto;
+ background:#fff7ef;color:#2b2028;border-radius:28px;
+ padding:30px;box-shadow:0 25px 80px #0008
+}
+.box h2{font-family:Georgia,serif;color:#c64b70;font-size:34px;margin:0 0 14px}
+.box p{line-height:1.8;margin:0 0 22px}
+.close{
+ border:0;background:#c64b70;color:#fff;border-radius:999px;
+ padding:11px 18px;cursor:pointer;min-height:44px
+}
+
+/* Small phones */
+@media(max-width:380px){
+ .mobile-section{padding-left:12px;padding-right:12px}
+ .mobile-section h2{font-size:32px}
+ .mobile-section p{font-size:15px}
+ .memory-card{padding-bottom:22px}
+ .memory-card span{font-size:11px}
+}
+
+/* Desktop/tablet breakpoint */
+@media(max-width:700px){
+ .desktop-view{display:none}
+ .mobile-view{display:block}
+ body{background:#091533}
+ .box{padding:24px;border-radius:22px}
+ .box h2{font-size:28px}
+}
+
+/* Tablets can keep the desktop artwork but give it breathing room */
+@media(min-width:701px) and (max-width:900px){
+ .nav{left:12px;top:12px;max-width:70%}
+ .nav a{font-size:10px;padding:8px 10px}
+ .note{font-size:10px;bottom:10px}
+}
+
+.music-toggle{position:fixed;right:18px;bottom:18px;z-index:120;width:48px;height:48px;border:1px solid #ffffff45;border-radius:50%;background:#091633e8;color:#fff;font-size:21px;cursor:pointer;box-shadow:0 8px 25px #0005;backdrop-filter:blur(8px);touch-action:manipulation}
+.music-toggle.playing{background:#ff9fbb;color:#281827}
+@media(max-width:700px){.music-toggle{right:14px;bottom:14px;width:46px;height:46px}}
+
+
+/* ==========================================================
+   LOVE ENTRY SCREEN
+   ========================================================== */
+
+.love-gate{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      #3b1d3b 0%,
+      #160d24 48%,
+      #080713 100%
+    );
+  transition:opacity .9s ease,visibility .9s ease;
+}
+
+.love-gate.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.love-gate-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  max-width:430px;
+}
+
+
+/* ==========================================================
+   COMPLETE HEART
+   ========================================================== */
+
+/* ==========================================================
+   PERFECT LOVE HEART
+   ========================================================== */
+
+.love-heart{
+  width:190px;
+  height:175px;
+
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:0;
+  padding:0;
+  margin:0;
+
+  background:transparent;
+  cursor:pointer;
+  touch-action:manipulation;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255,145,180,.95))
+    drop-shadow(0 0 28px rgba(255,105,155,.55));
+
+  animation:heartPulse 1.5s ease-in-out infinite;
+
+  transition:transform .2s ease;
+}
+
+.love-heart:hover{
+  transform:scale(1.06);
+}
+
+.love-heart:active{
+  transform:scale(.94);
+}
+
+
+/* The actual heart */
+
+.love-heart svg{
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:visible;
+}
+
+
+/* Pink heart */
+
+.love-heart .heart-shape{
+  fill:#ff6f9c;
+
+  stroke:#ffb0c8;
+  stroke-width:2.5;
+
+  stroke-linejoin:round;
+}
+
+
+/* Love text */
+
+.love-heart span{
+  position:relative;
+  z-index:2;
+
+  color:#fff;
+
+  font-size:30px;
+  font-weight:800;
+
+  letter-spacing:.5px;
+
+  text-shadow:
+    0 3px 6px rgba(80,15,45,.75),
+    0 0 10px rgba(255,255,255,.25);
+}
+
+
+/* Heart breathing animation */
+
+@keyframes heartPulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.045);
+  }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+  .love-heart{
+    width:165px;
+    height:152px;
+  }
+
+  .love-heart span{
+    font-size:26px;
+  }
+
+}
+
+/* ==========================================================
+   MINI BUBBLE RAIN
+   ========================================================== */
+
+.bubble-rain{
+  position:fixed;
+  inset:0;
+
+  pointer-events:none;
+
+  overflow:hidden;
+
+  z-index:8;
+
+  opacity:0;
+
+  transition:opacity 1s ease;
+}
+
+.bubble-rain.active{
+  opacity:1;
+}
+
+
+/* Individual bubbles */
+
+.bubble{
+  position:absolute;
+
+  top:-40px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.28);
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255,255,255,.32),
+      rgba(255,255,255,.08) 45%,
+      rgba(255,180,210,.04) 100%
+    );
+
+  box-shadow:
+    inset 0 0 8px rgba(255,255,255,.15),
+    0 0 10px rgba(255,150,190,.08);
+
+  will-change:transform;
+
+  animation:
+    bubbleFall linear infinite,
+    bubbleFloat ease-in-out infinite alternate;
+}
+
+
+/* Falling */
+
+@keyframes bubbleFall{
+
+  0%{
+    transform:translateY(-50px);
+  }
+
+  100%{
+    transform:translateY(calc(100vh + 60px));
+  }
+
+}
+
+
+/* Slight sideways movement */
+
+@keyframes bubbleFloat{
+
+  0%{
+    margin-left:-12px;
+  }
+
+  100%{
+    margin-left:12px;
+  }
+
+}
+
+
+/* Keep website controls above bubbles */
+
+.nav,
+.mobile-nav,
+.music-toggle,
+.hotspot{
+  z-index:20;
+}
+
+
+/* Love screen stays above everything */
+
+.love-gate{
+  z-index:1000;
+}
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+  .bubble{
+    opacity:.75;
+  }
+
+}
+
+
+/* Reduce animation when requested by device */
+
+@media(prefers-reduced-motion:reduce){
+
+  .bubble{
+    animation:none;
+  }
+
+  .love-heart{
+    animation:none;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- Love entry screen: the page content is revealed after the Love button is pressed. -->
+<!-- ==========================================================
+     LOVE ENTRY SCREEN
+     ========================================================== -->
+
+<div class="love-gate" id="loveGate">
+
+  <div class="love-gate-inner">
+
+    <button
+      class="love-heart"
+      id="loveEnter"
+      type="button"
+      aria-label="Open your surprise"
+    >
+
+      <!-- Complete heart -->
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path
+          class="heart-shape"
+          d="M462.3 62.6C407.5 15.9 326.7 24.5 275.9 76.7L256 97.2 236.1 76.7C185.3 24.5 104.5 15.9 49.7 62.6-18.7 120.9-15.1 226.8 38.8 280.7l205.7 205.8c6.3 6.3 16.5 6.3 22.8 0l205.7-205.8c53.9-53.9 57.5-159.8-10.7-218.1z"
+        />
+      </svg>
+
+      <span>Love</span>
+
+    </button>
+
+    <h1>For My Love ❤️</h1>
+
+    <p>
+      Press the heart to open your surprise.
+    </p>
+
+    <div class="earphones">
+      🎧 Use earphones for the best experience
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Background music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="assets/zara-sa-lofi.mp3" type="audio/mpeg">
+</audio>
+<button id="musicToggle" class="music-toggle" type="button" aria-label="Play music" aria-pressed="false">🎵</button>
+<!-- ==========================================================
+     MINI BUBBLE RAIN
+     ========================================================== -->
+
+<div
+  id="bubbleRain"
+  class="bubble-rain"
+  aria-hidden="true"
+></div>
+
+
+<!-- ==========================================================
+     DESKTOP VERSION
+     The complete original Ghibli artwork stays untouched.
+     All original hotspots/features are preserved.
+     ========================================================== -->
+<div class="desktop-view" id="home">
+  <nav class="nav">
+    <a href="#home">♥ Home</a>
+    <a href="#you">You</a>
+    <a href="#us">Us</a>
+    <a href="#feelings">My Feelings</a>
+    <a href="#memories">Memories</a>
+    <a href="#always">Always</a>
+  </nav>
+
+  <img class="art" src="assets/anniversary-art.png" alt="Ghibli-inspired anniversary love story">
+
+  <button class="hotspot" aria-label="You are a good girl"
+    style="left:0%;top:28%;width:25%;height:28%"
+    onclick="openLove('You Are A Good Girl 🌸','You are a good girl. Beautiful like flowers. Just like these flowers, you make everything around you more beautiful. ❤️')"></button>
+
+  <button class="hotspot" aria-label="You make me complete"
+    style="left:25%;top:28%;width:25%;height:28%"
+    onclick="openLove('You Make Me Complete ❤️','You make me complete… like life is nothing without its essence. Somehow, everything feels right when it is you.')"></button>
+
+  <button class="hotspot" aria-label="Hot like lava and calm like a river"
+    style="left:50%;top:28%;width:25%;height:28%"
+    onclick="openLove('Hot Like Lava. Calm Like River. 🔥🌊','You are HOT like lava — I mean you are attractive, beautiful and gorgeous. You are calm like a river. You have a heart like pure water. ❤️')"></button>
+
+  <button class="hotspot" aria-label="A smile like a goddess"
+    style="left:75%;top:28%;width:25%;height:28%"
+    onclick="openLove('A Smile Like A Goddess ✨','You have a beautiful smile like a goddess. Sorry I am wrong this time… because you ARE my goddess. ❤️')"></button>
+
+  <button class="hotspot" aria-label="Bestestestestest person"
+    style="left:0%;top:56%;width:28%;height:26%"
+    onclick="openLove('Bestestestestest Person 👑','Overall… YOU ARE THE BESTESTESTEST PERSON. My Queen. My Crazy Person. My Best Friend. ❤️')"></button>
+
+  <button class="hotspot" aria-label="Maybe I am selfish"
+    style="left:28%;top:56%;width:31%;height:26%"
+    onclick="openLove('You deserve all Happiness Like your Name ❤️','Maybe Its my only wish that I want that you should have all happiness and I choose to live the rest of my life loving you.')"></button>
+
+  <button class="hotspot" aria-label="Words are not enough"
+    style="left:59%;top:56%;width:41%;height:26%"
+    onclick="openLove('Words Aren’t Enough…','Aaaa.. ab itne words hai hi nahi ki mai apni iss amazing feeling ko express kr sku. I love you so muchhhhhhhhhhhhhh. ❤️')"></button>
+
+  <button class="hotspot" aria-label="Our memories"
+    style="left:0%;top:82%;width:36%;height:18%"
+    onclick="openLove('Our Illustrated Memories 📸','These memories are illustrated Ghibli-style. No real photographs are used in this section. ❤️')"></button>
+
+  <button class="hotspot" aria-label="Will you keep choosing me"
+    style="left:36%;top:82%;width:64%;height:18%"
+    onclick="openLove('Will You Keep Choosing Me? 🌙','Happy 1 Year & 10 Months, my love. Same people. More love. Many more years… ❤️')"></button>
+
+  <div class="note">Tap the illustrated panels to read the full message ❤️</div>
+</div>
+
+
+<!-- ==========================================================
+     MOBILE VERSION
+     Same artwork, but panels are stacked so nothing becomes
+     unreadably tiny. No real photographs are used.
+     ========================================================== -->
+<div class="mobile-view">
+
+  <nav class="mobile-nav">
+    <a href="#mhome">♥ Home</a>
+    <a href="#you">You</a>
+    <a href="#us">Us</a>
+    <a href="#feelings">My Feelings</a>
+    <a href="#memories">Memories</a>
+    <a href="#always">Always</a>
+  </nav>
+
+  <section class="mobile-hero" id="mhome">
+    <div class="mobile-hero-image-wrap">
+      <img src="assets/mobile-hero.jpg" alt="Ghibli-inspired illustration of us together">
+      <a class="hero-image-start" href="#you" aria-label="Start our story"></a>
+    </div>
+  </section>
+
+  <section class="mobile-section" id="you">
+    <img class="mobile-panel" src="assets/panel-01.jpg" alt="You are a good girl illustrated panel">
+    <h2>You Are A Good Girl 🌸</h2>
+    <p>You are a good girl. Beautiful like flowers. Just like these flowers, you make everything around you more beautiful. ❤️</p>
+
+    <img class="mobile-panel" src="assets/panel-02.jpg" alt="You make me complete illustrated panel">
+    <h2>You Make Me Complete ❤️</h2>
+    <p>You make me complete… like life is nothing without its essence. Somehow, everything feels right when it is you.</p>
+  </section>
+
+  <section class="mobile-section dark" id="us">
+    <img class="mobile-panel" src="assets/panel-03-corrected.jpg" alt="Hot like lava and calm like river illustrated panel">
+    <h2>Hot Like Lava 🔥</h2>
+    <p>You are <b>HOT like lava</b> — I mean you are attractive, beautiful and gorgeous. You are calm like a river, and you have a heart like pure water. ❤️</p>
+
+    <img class="mobile-panel last-panel" src="assets/panel-04.jpg" alt="A smile like a goddess illustrated panel">
+    <h2>A Smile Like A Goddess ✨</h2>
+    <p>You have a beautiful smile like a goddess. Sorry I am wrong this time… because you ARE my goddess. ❤️</p>
+  </section>
+
+  <section class="mobile-section">
+    <img class="mobile-panel" src="assets/panel-05.jpg" alt="Bestestestestest person illustrated panel">
+    <h2>Bestestestestest Person 👑</h2>
+    <p>Overall… YOU ARE THE BESTESTESTEST PERSON. My Queen. My Crazy Person. My Best Friend. ❤️</p>
+  </section>
+
+  <section class="mobile-section dark" id="feelings">
+    <img class="mobile-panel" src="assets/panel-06-final.jpg" alt="Maybe I am selfish illustrated panel">
+    <h2>You deserve all Happiness Like your Name ❤️</h2>
+    <p>Maybe It's my only wish that I want that you should have all happiness and I choose to live the rest of my life loving you.</p>
+
+    <img class="mobile-panel last-panel" src="assets/panel-07.jpg" alt="Words are not enough illustrated panel">
+    <h2>Words Aren’t Enough…</h2>
+    <p>Aaaa.. ab itne words hai hi nahi ki mai apni iss amazing feeling ko express kr sku.<br><br><b>I LOVE YOU SO MUCHHHHHHHHHHH ❤️</b></p>
+  </section>
+
+  <section class="mobile-memories" id="memories">
+    <h2>Our Little Memories ♡</h2>
+    <p>Little illustrated memories from our love story. ❤️</p>
+    <div class="memory-grid">
+      <div class="memory-card"><img src="assets/memory-1.jpg" alt="Illustrated memory"><span>My Love ♡</span></div>
+      <div class="memory-card"><img src="assets/memory-2.jpg" alt="Illustrated memory"><span>My Favourite Person ♡</span></div>
+      <div class="memory-card"><img src="assets/memory-3.jpg" alt="Illustrated memory"><span>My Everything ♡</span></div>
+    </div>
+  </section>
+
+  <section class="mobile-final" id="always">
+    <div>
+      <h2>Will You Keep Choosing Me? ♡</h2>
+      <p>Happy 1 Year & 10 Months, my love.<br>Same people. More love. Many more years… ❤️</p>
+      <div class="choices">
+        <button class="choice-btn" onclick="openLove('Yes ❤️','I was hoping you would say that. 🥹❤️')">Yes ❤️</button>
+        <button class="choice-btn alt" onclick="openLove('Always ❤️','Then I choose you too. Always. ❤️')">Always ❤️</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- Shared popup -->
+<div class="modal" id="modal" onclick="closeLove(event)">
+  <div class="box">
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+    <button class="close" onclick="closeLove()">Close ❤️</button>
+  </div>
+</div>
+
+<script>
+const modal=document.getElementById('modal');
+
+function openLove(title,text){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalText').textContent=text;
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeLove(e){
+  if(!e || e.target===modal || e.currentTarget===modal){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
+
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+bgMusic.volume = 0.38;
+
+function setMusicState(playing){
+  musicToggle.classList.toggle('playing', playing);
+  musicToggle.textContent = playing ? '🔊' : '🎵';
+  musicToggle.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+  musicToggle.setAttribute('aria-pressed', String(playing));
+}
+
+async function startMusic(){
+  try {
+    await bgMusic.play();
+    setMusicState(true);
+  } catch (e) {
+    // Browser autoplay policy blocked audible autoplay.
+    setMusicState(false);
+  }
+}
+
+function toggleMusic(){
+  if(bgMusic.paused){ startMusic(); }
+  else { bgMusic.pause(); setMusicState(false); }
+}
+
+musicToggle.addEventListener('click', e=>{ e.stopPropagation(); toggleMusic(); });
+
+// ==========================================================
+// LOVE BUTTON + MUSIC + BUBBLE RAIN
+// ==========================================================
+
+const loveGate = document.getElementById('loveGate');
+const loveEnter = document.getElementById('loveEnter');
+const bubbleRain = document.getElementById('bubbleRain');
+
+
+// Create the bubbles
+function createBubbles(){
+
+  bubbleRain.innerHTML = '';
+
+  // Fewer bubbles on mobile
+  const bubbleCount =
+    window.innerWidth <= 700 ? 22 : 35;
+
+
+  for(let i = 0; i < bubbleCount; i++){
+
+    const bubble = document.createElement('div');
+
+    bubble.className = 'bubble';
+
+
+    // Random size
+    const size =
+      Math.random() * 12 + 5;
+
+
+    // Random horizontal position
+    const left =
+      Math.random() * 100;
+
+
+    // Random falling speed
+    const fallDuration =
+      Math.random() * 8 + 7;
+
+
+    // Random starting delay
+    const delay =
+      Math.random() * 10;
+
+
+    // Random sideways movement speed
+    const floatDuration =
+      Math.random() * 3 + 2;
+
+
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+
+    bubble.style.left = `${left}%`;
+
+    bubble.style.animationDuration =
+      `${fallDuration}s, ${floatDuration}s`;
+
+    bubble.style.animationDelay =
+      `${delay}s, ${Math.random() * 2}s`;
+
+
+    bubbleRain.appendChild(bubble);
+
+  }
+
+}
+
+
+// Generate bubbles
+createBubbles();
+
+
+// Recalculate bubbles when screen size changes
+window.addEventListener('resize', () => {
+  createBubbles();
+});
+
+
+// ==========================================================
+// LOVE BUTTON
+// ==========================================================
+
+loveEnter.addEventListener('click', async ()=>{
+
+  // Start music because this is a real user interaction.
+  // This avoids normal browser autoplay restrictions.
+  await startMusic();
+
+
+  // Hide the Love screen
+  loveGate.classList.add('hidden');
+
+
+  // Allow the main website to scroll
+  document.body.style.overflow='';
+
+
+  // Start the bubble rain
+  bubbleRain.classList.add('active');
+
+});
+
+</script>
+</body>
+</html>
